@@ -11,7 +11,9 @@ public class Item<T> {
 	public T getValue() {
 		return value;
 	}
-
+	public boolean compare(String s){
+		return getValue().toString().startsWith(s);
+	}
 	public void setValue(T value) {
 		this.value = value;
 	}

@@ -34,12 +34,12 @@ public class Result extends TextField{
 		this.setText(item.toString());
 	}
 	
-	protected void setFocused() {
+	public void setFocused() {
 		String cssCodeFinal = String.format(cssCode,"#"+focusTextColor.toString().substring(2),"#"+focusBackgroundColor.toString().substring(2));
 		this.setStyle(cssCodeFinal);
 	}
 	
-	protected void setNotFocused() {
+	public void setNotFocused() {
 		String cssCodeFinal = String.format(cssCode,"#"+textColor.toString().substring(2),"#"+backgroundColor.toString().substring(2));
 		this.setStyle(cssCodeFinal);
 	}

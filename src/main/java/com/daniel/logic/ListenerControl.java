@@ -1,5 +1,6 @@
 package com.daniel.logic;
 
+import com.daniel.AutoCompleteTextField;
 import com.daniel.gui.Result;
 
 import javafx.beans.value.ChangeListener;
@@ -16,7 +17,7 @@ public class ListenerControl {
 		
 	}
 	
-	public EventHandler<KeyEvent>  keyPressedAutocomplete(final TextField textField){
+	public EventHandler<KeyEvent>  keyPressedAutocomplete(final AutoCompleteTextField textField){
 		return e->{
 			switch(e.getCode()) {
 				case UP:
@@ -38,13 +39,13 @@ public class ListenerControl {
 			}
 		};
 	}
-	public  ChangeListener<String> onChangeTextListenerAutocomplete(){
+	public  ChangeListener<String> onChangeTextListenerAutocomplete(AutoCompleteTextField textField){
 		return new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue,
 					String newValue) {
-				//TODO change listener 
+					textField.getItemsList().find(newValue);
 			}
 		};
 	}
