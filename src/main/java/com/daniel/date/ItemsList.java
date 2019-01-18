@@ -9,18 +9,18 @@ public class ItemsList extends ArrayList<Item<? extends Object>> {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public ItemsList(ArrayList<Item<? extends Object>> items) {
-		this.addAll(items);
+	public ItemsList(ArrayList<? extends Object> items) {
+		for(Object object : items)
+			addItem(new Item<Object>(object));
+			
 	}
 	public ItemsList(Item<? extends Object>[] items) {
-		for(Item<? extends Object> item : items) {
+		for(Item<? extends Object> item : items) 
 			addItem(item);
-		}
 	}
 	public ItemsList(Object[] items) {
-		for(Object item : items) {
+		for(Object item : items) 
 			addItem(item);
-		}
 	}
 	
 	public void addItem(Item<? extends Object> item) {
