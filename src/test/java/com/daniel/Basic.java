@@ -32,6 +32,6 @@ public class Basic {
 	            }
 	        });
 	        thread.start();
-	        Thread.sleep(10000); 
+	        Thread.sleep(1000000); 
 	    }
 }
