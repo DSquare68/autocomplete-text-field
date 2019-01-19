@@ -25,6 +25,7 @@ public class Result extends TextField{
 	}
 	
 	public Result(Item<? extends Object> item) {
+		this.item=item;
 		init();
 	}
 

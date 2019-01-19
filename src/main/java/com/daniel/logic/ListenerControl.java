@@ -45,7 +45,9 @@ public class ListenerControl {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue,
 					String newValue) {
-					textField.getItemsList().find(newValue);
+					if(textField.getItemsList().find(newValue)>0) 
+						textField.showResult();
+					
 			}
 		};
 	}

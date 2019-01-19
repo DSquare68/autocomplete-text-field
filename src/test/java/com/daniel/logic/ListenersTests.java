@@ -12,18 +12,24 @@ public class ListenersTests {
 
 	ArrayList<Cat> catsList = new ArrayList<>();
 	
-	@Test
+
 	public void testSearchAlgorithm(AutoCompleteTextField autoCompleteTextField) {
-		catsList.add(new Cat(5,5,5));
-		catsList.add(new Cat(5,10,5));
-		catsList.add(new Cat(5,10,5));
-		catsList.add(new Cat(5,20,5));
-		catsList.add(new Cat(5,5,50));
+		setCats();
 		autoCompleteTextField = new AutoCompleteTextField(catsList);
 		autoCompleteTextField.setText("5 10");
 		System.out.println("@Test  testSearchAlgorithm: "+2+" = "+autoCompleteTextField.getItemsList().getResultList().size());
 		assertEquals(2,autoCompleteTextField.getItemsList().getResultList().size());
 		//TODO maybe checks not only size but the value
+	}
+	public void setCats() {
+		catsList.add(new Cat(5,5,5));
+		catsList.add(new Cat(5,10,5));
+		catsList.add(new Cat(5,10,5));
+		catsList.add(new Cat(5,20,5));
+		catsList.add(new Cat(5,5,50));
+	}
+	public ArrayList<Cat> getCats() {
+		return catsList;
 	}
 	class Cat{
 		int age;

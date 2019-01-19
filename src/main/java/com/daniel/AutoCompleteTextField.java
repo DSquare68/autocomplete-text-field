@@ -2,9 +2,11 @@ package com.daniel;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.daniel.date.Item;
 import com.daniel.date.ItemsList;
+import com.daniel.gui.Result;
 import com.daniel.gui.ResultPane;
 import com.daniel.logic.ListenerControl;
 
@@ -18,15 +20,18 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	private int nrHover=Integer.MIN_VALUE;
 	private ResultPane resultPane;
 	private ItemsList itemsList;
+	private HashMap<Item<? extends Object>, Result> resultMap;
 	
 	public AutoCompleteTextField(ArrayList<? extends Object> items) {
 		ListenerControl listenerControl = new ListenerControl();
 		itemsList= new ItemsList(items);
 		this.setOnKeyPressed(listenerControl.keyPressedAutocomplete(this));
 		this.textProperty().addListener(listenerControl.onChangeTextListenerAutocomplete(this));
+		this.resultPane= new ResultPane(items,this);
+		resultMap=resultPane.getMap();
 	}
 	public AutoCompleteTextField(Object[] items) {
-		
+		//TODO test it how it works
 	}
 	
 	public int getNrHover() {
@@ -46,5 +51,15 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	}
 	public void setItemsList(ItemsList itemsList) {
 		this.itemsList = itemsList;
+	}
+	public void showResult() {
+		ArrayList<Result> array = new ArrayList<>();
+		for(Item<? extends Object> item : itemsList.getResultList())
+			array.add(resultMap.get(item));
+		resultPane.getResultList().removeAll(resultPane.getResultList());
+		resultPane.setResultList(array);
+		if(!resultPane.isVisible())
+			resultPane.show(this);
+		
 	}
 }
