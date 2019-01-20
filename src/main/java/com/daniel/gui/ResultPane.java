@@ -21,15 +21,16 @@ public class ResultPane extends StackPane {
 	ArrayList<Result> resultList = new ArrayList<Result>();
 	private ScrollPane scroll= new ScrollPane();
 	private int nrHover=Integer.MIN_VALUE;
-	private HashMap<Item<? extends Object>, Result> resultMap= new HashMap<>();
 	
-	public ResultPane(ArrayList<? extends Object> list,AutoCompleteTextField textField){
-		setList(list);
+	public ResultPane(AutoCompleteTextField textField){
+		setList(textField);
 		init(textField);
 	}
 
 	@SuppressWarnings("unchecked")
-	private void setList(ArrayList<? extends Object> list) {
+	private void setList(AutoCompleteTextField textField) {
+		ArrayList<? extends Object> list= textField.getItemsList();
+		HashMap<Item<? extends Object>, Result> resultMap = textField.getResultMap();
 		switch(list.get(0).getClass().getSimpleName()) {
 			case "Result":
 				this.resultList=(ArrayList<Result>) list;
@@ -54,11 +55,6 @@ public class ResultPane extends StackPane {
 	}
 
 	private void init(AutoCompleteTextField textField) {
-		Bounds bounds = textField.localToScene(textField.getBoundsInLocal());
-		this.setWidth(textField.getWidth());
-		this.setHeight(textField.getHeight()*3);
-		this.setTranslateX(bounds.getMinX());
-		this.setTranslateY(bounds.getMinY()-textField.getHeight());
 		VBox vBox= new VBox(5);
 		resultList.forEach(r->vBox.getChildren().add(r));
 		scroll.setContent(vBox);
@@ -85,11 +81,12 @@ public class ResultPane extends StackPane {
 		});
 	}
 	public void show(AutoCompleteTextField textField) {
-		((Group) textField.getParent()).getChildren().add(this);
+		if(((Group) textField.getParent()).getChildren().indexOf(this) == -1)
+			((Group) textField.getParent()).getChildren().add(this);
+		setLocation(textField);
 	}
 	public void hide() {
 		this.getChildren().remove(scroll);
-		scroll.getChildren().remove(this);
 	}
 
 	public ArrayList<Result> getResultList() {
@@ -99,9 +96,11 @@ public class ResultPane extends StackPane {
 	public void setResultList(ArrayList<Result> resultList) {
 		this.resultList = resultList;
 	}
-
-	public HashMap<Item<? extends Object>, Result> getMap() {
-		return resultMap;
+	public void setLocation(AutoCompleteTextField textField) {
+		Bounds bounds = textField.localToScene(textField.getBoundsInLocal());
+		this.setWidth(textField.getWidth());
+		this.setHeight(textField.getHeight()*3);
+		this.setTranslateX(bounds.getMinX());
+		this.setTranslateY(bounds.getMinY()+textField.getHeight());
 	}
-	
 }

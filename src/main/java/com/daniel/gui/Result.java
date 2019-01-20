@@ -11,7 +11,7 @@ public class Result extends TextField{
 	private Item<? extends Object>item;
 	private Color textColor=Color.BLACK,backgroundColor=Color.WHITE, focusTextColor=Color.FUCHSIA, focusBackgroundColor=Color.DARKVIOLET;
 	
-	String cssCode="-fx-background-color: #%s;"+"-fx-text-fill: #%s";
+	String cssCode="-fx-background-color: %s;"+"-fx-text-fill: %s";
 	
 	public Result(Item<? extends Object> item, Color textColor, Color backgroudColor, Color focusTextColor, Color focusBackgroudColor) {
 		this.item=item;

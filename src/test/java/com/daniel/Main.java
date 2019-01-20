@@ -24,6 +24,8 @@ public class Main extends Application{
         AutoCompleteTextField autoCompleteTextField= null;
         listenersTests.setCats();
         autoCompleteTextField =new AutoCompleteTextField(new ItemsList(listenersTests.getCats()));
+        autoCompleteTextField.setTranslateX(40);
+        autoCompleteTextField.setTranslateY(100);
         root.getChildren().add(autoCompleteTextField);
         stage.setScene(scene);
         stage.show();
