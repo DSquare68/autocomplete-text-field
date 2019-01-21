@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.daniel.AutoCompleteTextField;
 import com.daniel.date.Item;
+import com.daniel.logic.ListenerControl;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -55,6 +56,7 @@ public class ResultPane extends StackPane {
 	}
 
 	private void init(AutoCompleteTextField textField) {
+		ListenerControl listenerControl = new ListenerControl();
 		scroll.setPrefSize(textField.getWidth(), textField.getHeight()*3);
 		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.getChildren().add(scroll);
@@ -62,19 +64,7 @@ public class ResultPane extends StackPane {
 		resultList.forEach(r->{
 			r.setEditable(false);
 			r.setFocusTraversable(false);
-			r.setOnMouseClicked(e->{
-				if(e.getButton()==MouseButton.PRIMARY&&e.getClickCount()==1) {
-					resultList.get(textField.getNrHover()).setStyle("-fx-background-color: #FFFFFF;"
-							+ "-fx-text-fill: #0076a3");
-					r.setStyle("-fx-background-color: #FFFF22;"
-							+ "-fx-text-fill: #9976a3");
-					nrHover=resultList.indexOf(r);
-					textField.setNrHover(nrHover);
-				}else if(e.getButton()==MouseButton.PRIMARY&&e.getClickCount()==2) {
-					textField.setText(r.getText()); 
-					hide();
-				}	
-			});
+			r.setOnMouseClicked(listenerControl.onMouseListenerResult(textField,this,r));
 		});
 	}
 	public void show(AutoCompleteTextField textField) {

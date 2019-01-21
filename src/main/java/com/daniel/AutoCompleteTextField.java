@@ -10,6 +10,9 @@ import com.daniel.gui.Result;
 import com.daniel.gui.ResultPane;
 import com.daniel.logic.ListenerControl;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
 public class AutoCompleteTextField extends TextField implements Controls{
@@ -18,6 +21,7 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	 *  index of hovered item 
 	 */
 	private int nrHover=Integer.MIN_VALUE;
+	private IntegerProperty hoverProperty = new SimpleIntegerProperty();
 	private ResultPane resultPane;
 	private ItemsList itemsList;
 	private HashMap<Item<? extends Object>, Result> resultMap = new HashMap<>();
@@ -28,16 +32,18 @@ public class AutoCompleteTextField extends TextField implements Controls{
 		this.setOnKeyPressed(listenerControl.keyPressedAutocomplete(this));
 		this.textProperty().addListener(listenerControl.onChangeTextListenerAutocomplete(this));
 		this.resultPane= new ResultPane(this);
+		hoverProperty.set(nrHover);
+		hoverProperty.addListener(listenerControl.nrHoverValueObservable(resultPane));
 	}
 	public AutoCompleteTextField(Object[] items) {
 		//TODO test it how it works
 	}
 	
 	public int getNrHover() {
-		return nrHover;
+		return hoverProperty.get();
 	}
 	public void setNrHover(int nrHover) {
-		this.nrHover = nrHover;
+		this.hoverProperty.set(nrHover);;
 	}
 	public ResultPane getResultPane() {
 		return resultPane;
