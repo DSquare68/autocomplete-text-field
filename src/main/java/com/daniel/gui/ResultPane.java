@@ -55,9 +55,6 @@ public class ResultPane extends StackPane {
 	}
 
 	private void init(AutoCompleteTextField textField) {
-		VBox vBox= new VBox(5);
-		resultList.forEach(r->vBox.getChildren().add(r));
-		scroll.setContent(vBox);
 		scroll.setPrefSize(textField.getWidth(), textField.getHeight()*3);
 		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.getChildren().add(scroll);
@@ -83,10 +80,12 @@ public class ResultPane extends StackPane {
 	public void show(AutoCompleteTextField textField) {
 		if(((Group) textField.getParent()).getChildren().indexOf(this) == -1)
 			((Group) textField.getParent()).getChildren().add(this);
+		setVisible(true);
 		setLocation(textField);
+		setResult(textField);
 	}
 	public void hide() {
-		this.getChildren().remove(scroll);
+		this.setVisible(false);
 	}
 
 	public ArrayList<Result> getResultList() {
@@ -95,6 +94,11 @@ public class ResultPane extends StackPane {
 
 	public void setResultList(ArrayList<Result> resultList) {
 		this.resultList = resultList;
+	}
+	private void setResult(AutoCompleteTextField textField) {
+		VBox vBox= new VBox(5);
+		textField.getItemsList().getResultList().forEach(e->vBox.getChildren().add(textField.getResultMap().get(e)));
+		scroll.setContent(vBox);
 	}
 	public void setLocation(AutoCompleteTextField textField) {
 		Bounds bounds = textField.localToScene(textField.getBoundsInLocal());

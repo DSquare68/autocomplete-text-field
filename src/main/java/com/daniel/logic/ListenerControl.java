@@ -47,7 +47,10 @@ public class ListenerControl {
 					String newValue) {
 					if(textField.getItemsList().find(newValue)>0) 
 						textField.showResult();
-					
+					else 
+						textField.getResultPane().hide();
+					//if(newValue.equals(""))
+						//TODO what if text is empty
 			}
 		};
 	}
