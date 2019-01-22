@@ -9,11 +9,8 @@ import com.daniel.logic.ListenerControl;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -21,7 +18,6 @@ public class ResultPane extends StackPane {
 	
 	ArrayList<Result> resultList = new ArrayList<Result>();
 	private ScrollPane scroll= new ScrollPane();
-	private int nrHover=Integer.MIN_VALUE;
 	
 	public ResultPane(AutoCompleteTextField textField){
 		setList(textField);

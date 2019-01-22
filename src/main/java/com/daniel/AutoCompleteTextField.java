@@ -12,7 +12,6 @@ import com.daniel.logic.ListenerControl;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
 public class AutoCompleteTextField extends TextField implements Controls{
@@ -26,7 +25,13 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	private ItemsList itemsList;
 	private HashMap<Item<? extends Object>, Result> resultMap = new HashMap<>();
 	
+	public static int searchMode=SEARCH_FROM_BEGGINING;
+	public static int upperCase=IGNORE_UPPER_CASES;
+	
 	public AutoCompleteTextField(ArrayList<? extends Object> items) {
+		init(items);
+	}
+	private void init(ArrayList<? extends Object> items) {
 		ListenerControl listenerControl = new ListenerControl();
 		itemsList= new ItemsList(items);
 		this.setOnKeyPressed(listenerControl.keyPressedAutocomplete(this));
@@ -64,7 +69,19 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	public void setResultMap(HashMap<Item<? extends Object>, Result> resultMap) {
 		this.resultMap = resultMap;
 	}
-	@SuppressWarnings("unlikely-arg-type")
+	
+	public static int getSearchMode() {
+		return searchMode;
+	}
+	public static void setSearchMode(int searchMode) {
+		AutoCompleteTextField.searchMode = searchMode;
+	}
+	public static int getUpperCase() {
+		return upperCase;
+	}
+	public static void setUpperCase(int upperCase) {
+		AutoCompleteTextField.upperCase = upperCase;
+	}
 	public void showResult() {
 		ArrayList<Result> array = new ArrayList<>();
 		for(Item<? extends Object> item : itemsList.getResultList())
