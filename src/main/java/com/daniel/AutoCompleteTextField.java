@@ -19,7 +19,6 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	/**
 	 *  index of hovered item 
 	 */
-	private int nrHover=Integer.MIN_VALUE;
 	private IntegerProperty hoverProperty = new SimpleIntegerProperty();
 	private ResultPane resultPane;
 	private ItemsList itemsList;
@@ -29,19 +28,20 @@ public class AutoCompleteTextField extends TextField implements Controls{
 	public static int upperCase=IGNORE_UPPER_CASES;
 	
 	public AutoCompleteTextField(ArrayList<? extends Object> items) {
-		init(items);
-	}
-	private void init(ArrayList<? extends Object> items) {
-		ListenerControl listenerControl = new ListenerControl();
 		itemsList= new ItemsList(items);
+		init();
+	}
+	public AutoCompleteTextField(Object[] items) {
+		itemsList= new ItemsList(items);
+		init();
+	}
+	private void init() {
+		ListenerControl listenerControl = new ListenerControl();
 		this.setOnKeyPressed(listenerControl.keyPressedAutocomplete(this));
 		this.textProperty().addListener(listenerControl.onChangeTextListenerAutocomplete(this));
 		this.resultPane= new ResultPane(this);
-		hoverProperty.set(nrHover);
+		hoverProperty.set(Integer.MIN_VALUE);
 		hoverProperty.addListener(listenerControl.nrHoverValueObservable(resultPane));
-	}
-	public AutoCompleteTextField(Object[] items) {
-		//TODO test it how it works
 	}
 	
 	public int getNrHover() {
